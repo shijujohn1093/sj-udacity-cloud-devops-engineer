@@ -15,7 +15,7 @@ managedNodeGroups:
   instanceType: t2.micro
   ssh:
     allow: true
-    publicKeyName: eksworkshop
+    publicKeyName: capstoneudacity
 
 # To enable all of the control plane logs, uncomment below:
 # cloudWatch:
@@ -23,4 +23,4 @@ managedNodeGroups:
 #    enableTypes: ["*"]
 
 secretsEncryption:
-  keyARN: arn:aws:kms:us-east-1:287408872399:key/7744f02f-e026-4f89-87b9-da2d14f1b738
+  keyARN: arn:aws:kms:us-east-1:287408872399:key/fab165c5-c142-4474-83d7-0db5223e9d66
