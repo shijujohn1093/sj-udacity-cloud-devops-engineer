@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: capstone
+  name: capstoneudacity
   labels:
-    app: capstone
+    app: capstoneudacity
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: capstone
+      app: capstoneudacity
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: capstone
+        app: capstoneudacity
     spec:
       containers:
-      - image: shijujohn1093/capstone:@BuildNumber@
+      - image: shijujohn1093/capstoneudacity:@BuildNumber@
         imagePullPolicy: Always
-        name: capstone
+        name: capstoneudacity
         ports:
         - containerPort: 80
           protocol: TCP

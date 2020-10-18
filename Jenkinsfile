@@ -47,7 +47,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    image = docker.build("shijujohn1093/capstone", "-f application/Dockerfile application")
+                    image = docker.build("shijujohn1093/capstoneudacity", "-f application/Dockerfile application")
                 }
             }
         }

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: capstone
+  name: capstoneudacity
 spec:
   selector:
-    app: capstone
+    app: capstoneudacity
   type: LoadBalancer
   ports:
    -  protocol: TCP

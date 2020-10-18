@@ -6,7 +6,7 @@ docker ia#!/usr/bin/env bash
 # Step 1:
 # Create dockerpath
 # dockerpath=<your docker ID/path>
-dockerpath="shijujohn1093/capstone"
+dockerpath="shijujohn1093/capstoneudacity"
 
 # Step 2:  
 # Authenticate & tag
