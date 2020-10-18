@@ -5,6 +5,13 @@ pipeline {
 
     stages {
     
+        stage("Print Build Information") {
+            steps {
+                sh "echo 'Build Number'+${BUILD_NUMBER}"
+                sh "echo 'GIT Commit'+${GIT_COMMIT}"
+            }
+        }
+    
         stage('Token Replacement') {
              steps {
                  sh 'echo "Replacing build details in html and deplyment files"'
@@ -95,7 +102,7 @@ pipeline {
 
         stage('Post deployment test') {
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'ap-southeast-2') {
+                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
                     sh '''
                         HOST=$(kubectl get service service-capstone | grep 'amazonaws.com' | awk '{print $4}')
                         curl $HOST -f
@@ -109,5 +116,6 @@ pipeline {
                 sh "docker system prune -f"
             }
         }
+        
     }
 }
