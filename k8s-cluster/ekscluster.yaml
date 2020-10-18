@@ -23,4 +23,4 @@ managedNodeGroups:
 #    enableTypes: ["*"]
 
 secretsEncryption:
-  keyARN: arn:aws:kms:us-east-1:287408872399:key/d7a05b5c-4b89-4612-b01d-9d9a56d21833
+  keyARN: arn:aws:kms:us-east-1:287408872399:key/8d08f7f8-3471-4659-8442-42776c887daa
