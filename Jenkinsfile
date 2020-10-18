@@ -67,9 +67,10 @@ pipeline {
 
         stage('Apply deployment') {
             steps {
-                dir('kubernetes') {
+                dir('k8s-deployment') {
                     withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-                            sh 'kubectl apply -f k8s.yaml'
+                            sh "kubectl --v=6 apply -f k8s-deployment/deployment.yaml"
+                            sh "kubectl --v=6 apply -f k8s-deployment/service.yaml"
                         }
                     }
             }
@@ -77,7 +78,7 @@ pipeline {
 
         stage('Update deployment') {
             steps {
-                dir('kubernetes') {
+                dir('k8s-deployment') {
                     withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
                             sh "kubectl set image deployments/capstone capstone=shijujohn1093/capstone:${BUILD_NUMBER}"
                         }
