@@ -56,15 +56,6 @@ pipeline {
             }
         }
 
-        stage('Print User') {
-            steps {
-                
-                            sh 'who am i'
-                  
-            }
-        }
-
-
         stage('Apply deployment') {
             steps {
                 dir('k8s-deployment') {
