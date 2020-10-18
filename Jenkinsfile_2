@@ -1,0 +1,44 @@
+pipeline {
+     agent any
+     stages {
+         stage('Build package') {
+             steps {
+                 sh 'echo "Replacing build details in html and deplyment files"'
+                 sh '''
+                     sed -i -e "s/@BuildNumber@/${BUILD_NUMBER}/; s/@GIT_COMMIT@/${GIT_COMMIT}/;" application/templates/index.html
+					 sed -i -e "s/@BuildNumber@/${BUILD_NUMBER}/;" k8s-deployment/deployment.yaml
+					 cat application/templates/index.html
+					 cat k8s-deployment/deployment.yaml
+                 '''
+             }
+         }
+		 stage('DockerLint') {
+             steps {
+                 sh 'echo "Checking DockerFile"'
+                 sh 'hadolint application/Dockerfile'
+             }
+         }
+		 stage('BuildDocker') {
+             steps {
+                 sh 'echo "Building Docker Image"'
+                 sh "docker build --tag=capstone:${BUILD_NUMBER} ."
+             }
+         }
+		 stage('Docker hub upload') {
+             steps {
+					sh "docker tag capstone:${BUILD_NUMBER} shijujohn1093/capstone:${BUILD_NUMBER}"
+                    withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
+						sh 'docker push shijujohn1093/capstone:${BUILD_NUMBER}'
+
+             }
+         }
+		}
+		stage('Deploy Kubernetes with kubectl installed on jenkins servers') {
+            steps {
+				
+				sh "kubectl --v=6 apply -f kubernetes/deployment.yaml"
+				sh "kubectl --v=6 apply -f kubernetes/service.yaml"
+            }
+		} 
+	} 
+}
